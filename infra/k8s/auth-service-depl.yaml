@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blp-auth-service-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blp-auth-service
+  template:
+    metadata:
+      labels:
+        app: blp-auth-service
+    spec:
+      containers:
+        - name: auth-service
+          image: solexkal/blp-auth-service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blp-auth-service-srv
+spec:
+  selector:
+    app: blp-auth-service
+  ports:
+    - name: blp-auth-service
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
