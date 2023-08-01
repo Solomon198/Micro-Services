@@ -9,7 +9,7 @@ spec:
     - host: blp-boilerplate.com
       http:
         paths:
-          - path: /api/user/?(.*)
+          - path: /api/users/?(.*)
             pathType: ImplementationSpecific
             backend:
               service:
