@@ -5,10 +5,13 @@ export interface OrderCreatedEvent {
   subject: Subjects.OrderCreated;
   data: {
     id: string;
-    status: OrderStatus.Created;
+    status: OrderStatus;
     userId: string;
+    version: number;
     expiresAt: string;
-    ticket: string;
-    price: number;
+    ticket: {
+      id: string;
+      price: number;
+    };
   };
 }
