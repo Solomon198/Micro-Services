@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import {
+  BadRequestError,
   NotAuthorized,
   NotFoundError,
   RequireAuth,
@@ -7,6 +8,8 @@ import {
 } from "@crazy-devz/common";
 import { body } from "express-validator";
 import { Ticket } from "../models/ticket";
+import { TicketUpdatedPublisher } from "../events/publishers/ticket-updated-event";
+import { natsWrappper } from "../nats-wrapper";
 
 const router = express.Router();
 
@@ -26,6 +29,10 @@ router.put(
       throw new NotFoundError();
     }
 
+    if (ticket.orderId) {
+      throw new BadRequestError("Cannot update a reserve ticket");
+    }
+
     if (ticket.userId !== req.currentUser!.id) {
       throw new NotAuthorized();
     }
@@ -38,6 +45,13 @@ router.put(
     });
 
     await ticket.save();
+    await new TicketUpdatedPublisher(natsWrappper.client).publish({
+      id: ticket.id,
+      title: ticket.title,
+      userId: ticket.userId,
+      price: ticket.price,
+      version: ticket.version,
+    });
     res.send(ticket);
   }
 );

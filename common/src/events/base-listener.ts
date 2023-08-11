@@ -6,7 +6,7 @@ interface Event {
   data: any;
 }
 export abstract class Listener<T extends Event> {
-  private client: Stan;
+  protected client: Stan;
 
   protected ackWait = 5 * 1000;
   abstract subject: T["subject"];
