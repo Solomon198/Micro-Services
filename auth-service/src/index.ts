@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import { app } from "./app";
 
 const startApplication = async () => {
+  console.log("starting up");
   if (!process.env.JWT_KEY) {
     throw new Error("JWT TOKEN is not defined");
   }
