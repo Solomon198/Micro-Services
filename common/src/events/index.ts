@@ -6,3 +6,5 @@ export { OrderCancelledEvent } from "./order-cancelled-event";
 export { OrderCreatedEvent } from "./order-created-event";
 export { Subjects } from "./subjects";
 export { OrderStatus } from "./types/order-status";
+export { ExpirationComplete } from "./expiration-complete-event";
+export { PaymentCreatedEvent } from "./payment-created-event";

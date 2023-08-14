@@ -13,7 +13,7 @@ import { Orders } from "../models/order";
 import { OrderCreatedPublisher } from "../events/publishers/order-created-publisher";
 import { natsWrappper } from "../nats-wrapper";
 
-const EXPIRATION_SECONDS = 15 * 60;
+const EXPIRATION_SECONDS = 1 * 60;
 const router = express.Router();
 
 router.post(
